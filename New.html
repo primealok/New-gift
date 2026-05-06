@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft Birthday Celebration!</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Press Start 2P', monospace;
+            background: linear-gradient(45deg, #4CAF50, #8BC34A, #FFEB3B, #FF9800);
+            background-size: 400% 400%;
+            animation: minecraftSky 10s ease infinite;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        @keyframes minecraftSky {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .minecraft-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #FFD700;
+            animation: float 6s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            position: relative;
+            z-index: 2;
+            padding: 20px;
+        }
+
+        .minecraft-logo {
+            font-size: 3rem;
+            color: #4CAF50;
+            text-shadow: 4px 4px 0px #2E7D32, 8px 8px 0px #1B5E20;
+            margin-bottom: 30px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-20px); }
+            60% { transform: translateY(-10px); }
+        }
+
+        .input-section {
+            background: rgba(76, 175, 80, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            border: 8px solid #2E7D32;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+        }
+
+        h1 {
+            color: #FFF;
+            text-shadow: 3px 3px 0px #2E7D32;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        input[type="text"] {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 1rem;
+            padding: 15px 20px;
+            border: 4px solid #FFEB3B;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 300px;
+            background: #FFF;
+            text-align: center;
+            text-transform: uppercase;
+            box-shadow: inset 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #FF9800;
+            box-shadow: 0 0 20px rgba(255, 152, 0, 0.5);
+        }
+
+        .btn {
+            font-family: 'Press Start 2P', monospace;
+            background: linear-gradient(45deg, #FF5722, #FF9800);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 0.9rem;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.4);
+        }
+
+        .btn:active {
+            transform: translateY(-2px);
+        }
+
+        /* Birthday Popup */
+        .birthday-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            animation: popupAppear 0.5s ease-out;
+        }
+
+        @keyframes popupAppear {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .popup-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #4CAF50, #8BC34A);
+            padding: 50px;
+            border-radius: 30px;
+            border: 10px solid #2E7D32;
+            text-align: center;
+            max-width: 90%;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            animation: birthdayBounce 1s infinite;
+        }
+
+        @keyframes birthdayBounce {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.05); }
+        }
+
+        .cake {
+            font-size: 4rem;
+            margin: 20px 0;
+            animation: cakeWiggle 2s infinite;
+        }
+
+        @keyframes cakeWiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(5deg); }
+            75% { transform: rotate(-5deg); }
+        }
+
+        .birthday-message {
+            font-size: 1.2rem;
+            color: #FFF;
+            text-shadow: 3px 3px 0px #2E7D32;
+            margin: 20px 0;
+            line-height: 1.6;
+        }
+
+        .close-btn {
+            background: #FF5722;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.8rem;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 20px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+
+        /* Fireworks */
+        .fireworks {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        .firework {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #FFD700;
+            border-radius: 50%;
+            animation: firework 2s infinite;
+        }
+
+        @keyframes firework {
+            0% {
+                transform: scale(0) translateY(0);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1) translateY(-100px);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(0) translateY(-200px);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .minecraft-logo { font-size: 2rem; }
+            .input-section { padding: 30px 20px; }
+            h1 { font-size: 1rem; }
+            .popup-content { padding: 30px 20px; }
+            .cake { font-size: 3rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Particles -->
+    <div class="minecraft-particles" id="particles"></div>
+
+    <div class="container">
+        <div class="minecraft-logo">🎮 MINECRAFT 🎮</div>
+        <div class="input-section">
+            <h1>ENTER YOUR MINECRAFT NAME</h1>
+            <input type="text" id="playerName" placeholder="PlayerName" maxlength="16">
+            <br>
+            <button class="btn" onclick="celebrateBirthday()">🎂 CELEBRATE! 🎂</button>
+        </div>
+    </div>
+
+    <!-- Birthday Popup -->
+    <div class="birthday-popup" id="birthdayPopup">
+        <div class="popup-content">
+            <div class="cake">🎂🍰🎂</div>
+            <div class="birthday-message" id="birthdayMsg"></div>
+            <button class="close-btn" onclick="closeCelebration()">BACK TO MINING ⛏️</button>
+        </div>
+    </div>
+
+    <!-- Fireworks Container -->
+    <div class="fireworks" id="fireworks"></div>
+
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Birthday celebration
+        function celebrateBirthday() {
+            const name = document.getElementById('playerName').value.trim();
+            if (!name) {
+                alert('⛏️ Enter your Minecraft username first! ⛏️');
+                return;
+            }
+
+            const messages = [
+                `🌟 HAPPY BIRTHDAY ${name.toUpperCase()}! 🌟`,
+                `🎉 You've leveled up another year! 🎉`,
+                `🍪 Time for cake and diamonds! 🍪`,
+                `🎂 ${name} is the BEST MINER! 🎂`,
+                `✨ Another year of epic adventures! ✨`
+            ];
+
+            document.getElementById('birthdayMsg').innerHTML = messages[Math.floor(Math.random() * messages.length)];
+            document.getElementById('birthdayPopup').style.display = 'block';
+            
+            // Play birthday song
+            playBirthdaySong();
+            
+            // Start fireworks
+            startFireworks();
+            
+            // Screen shake effect
+            shakeScreen();
+        }
+
+        function closeCelebration() {
+            document.getElementById('birthdayPopup').style.display = 'none';
+            document.getElementById('fireworks').innerHTML = '';
+        }
+
+        // Birthday Song (using Web Audio API)
+        function playBirthdaySong() {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const notes = [262, 294, 330, 349, 392, 440, 494, 523]; // C4 to C5
+            const song = [0,0,1,1,2,2,1,0,0,0,2,2,1,0,0,0]; // Simplified melody
+            const durations = [1,1,1,1,1,1,2,2,1,1,1,1,1,1,2,4];
+            
+            let time = 0;
+            song.forEach((note, index) => {
+                if (note !== 0) {
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                    
+                    oscillator.frequency.value = notes[note];
+                    oscillator.type = 'square'; // 8-bit sound
+                    
+                    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime + time);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + time + durations[index]);
+                    
+                    oscillator.start(audioContext.currentTime + time);
+                    oscillator.stop(audioContext.currentTime + time + durations[index]);
+                }
+                time += durations[index] * 0.4;
+            });
+        }
+
+        // Fireworks effect
+        function startFireworks() {
+            const fireworksContainer = document.getElementById('fireworks');
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    createFirework(fireworksContainer);
+                }, i * 200);
+            }
+        }
+
+        function createFirework(container) {
+            const firework = document.createElement('div');
+            firework.className = 'firework';
+            firework.style.left = Math.random() * 100 + '%';
+            firework.style.top = Math.random() * 50 + '%';
+            firework.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            firework.style.animationDuration = (Math.random() * 2 + 1.5) + 's';
+            container.appendChild(firework);
+            
+            setTimeout(() => firework.remove(), 3000);
+        }
+
+        // Screen shake effect
+        function shakeScreen() {
+            document.body.style.animation = 'shake 0.5s';
+            setTimeout(() => {
+                document.body.style.animation = '';
+            }, 500);
+        }
+
+        // Add shake animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+                20%, 40%, 60%, 80% { transform: translateX(5px); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Enter key support
+        document.getElementById('playerName').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                celebrateBirthday();
+            }
+        });
+
+        // Initialize particles
+        createParticles();
+
+        // Auto-focus input
+        window.onload = () => {
+            document.getElementById('playerName').focus();
+        };
+    </script>
+</body>
+</html>
